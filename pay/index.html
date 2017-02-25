@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="reset">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/vue/2.1.10/vue.js" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/zepto/1.2.0/zepto.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.js" type="text/javascript"></script>
+	<script src="pay.js" type="text/javascript"></script>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.css">
+	<link href="pay.css" rel="stylesheet">
+	<title>Pay</title>
+</head>
+<body class="reset">
+	<div id="app">
+		<pay></pay>
+	</div>
+	<template id="tpl-pay">
+		<div class="roboto-400 c-root">
+			<div class="c-header">
+				<p class="c-header__h reset">{{header}}</p>
+				<p class="c-header__h2 reset">{{subheader}}</p>
+			</div>
+			<div class="c-sp_30"></div>
+			<div class="c-info">
+				<div class="c-info__c-table c-table c-table_fullscreen">
+					<div class="c-table__row" v-for="(val, key) in data.info">
+						<div class="c-table__cell c-info__key">{{key}}</div>
+						<div
+							class="c-table__cell c-info__val"
+							:class="{'c-info__val_price roboto-700': key === 'Цена'}"
+						>
+							{{val}} <span v-if="key === 'Цена'">руб.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="c-sp_30"></div>
+			<div class="c-select-pay">
+				<p class="c-select-pay__header reset">Пожалуйста, выберите любой доступный способ оплаты:</p>
+				<div class="c-select-pay__list clearfix">
+					<div
+						class="c-select-pay__list-item"
+						v-for="pay in pays"
+						v-on:click="hint = pay.name"
+						:class="{'c-select-pay__list-item_is_active': pay.name === hint}"
+					>
+						<div>
+							<img :src="pay.img" alt="" class="c-select-pay__list-item-img">
+							<p class="c-select-pay__list-item-name">{{pay.name}}</p>
+						</div>
+						<button
+							class="c-select-pay__c-close-button c-close-button"
+							title="Закрыть инструкцию"
+							v-if="pay.name === hint"
+							v-on:click.stop="hint = false"
+						>
+							&times;
+						</button>
+					</div>
+				</div>
+				<div class="c-sp_30"></div>
+				<div class="c-sp_15"></div>
+				<div class="c-select-pay__hint" v-if="!!hint">
+					<div
+						class="c-table c-table_fullscreen"
+						v-for="(val, key) in paysInfo"
+						v-if="key === hint"
+					>
+						<div class="c-table__row" v-for="info in val">
+							<div class="c-table__cell">{{info.text}}</div>
+							<div class="c-table__cell">{{info.img}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="c-sp_30"></div>
+			<div class="c-info c-info_has_form">
+				<p class="c-info__header reset roboto-700">После оплаты <span class="upper">обязательно</span> запоните эту форму:</p>
+				<form action="#" class="reset" v-on:submit.prevent="sendForm">
+					<div class="c-info__c-table c-table c-table_fullscreen">
+						<div class="c-table__row">
+							<div class="c-table__cell">Email</div>
+							<div class="c-table__cell">
+								<input
+									type="email"
+									:class="{'c-input': true, 'c-input_is_valid': validation.email}"
+									placeholder="Введите email"
+									v-model="form.email"
+								>
+								<span class="c-input-label" v-show="!validation.email">Например user@mail.com</span>
+							</div>
+						</div>
+						<div class="c-table__row">
+							<div class="c-table__cell">№ Транзакции</div>
+							<div class="c-table__cell">
+								<input
+									type="text"
+									:class="{'c-input': true, 'c-input_is_valid': validation.transaction}"
+									placeholder="№ Транзакции"
+									v-model="form.transaction"
+								>
+								<span
+									class="c-input-label"
+									v-show="!validation.transaction"
+								>
+									Например: 2000610252470
+								</span>
+							</div>
+						</div>
+						<div class="c-table__row">
+							<div class="c-table__cell"></div>
+							<div class="c-table__cell">
+								<button class="c-info__button">Отправить</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</template>
+</body>
+</html>
