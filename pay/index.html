@@ -3,9 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="https://cdn.jsdelivr.net/vue/2.1.10/vue.js" type="text/javascript"></script>
-	<script src="https://cdn.jsdelivr.net/zepto/1.2.0/zepto.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/velocity/1.4.3/velocity.min.js" type="text/javascript"></script>
 	<script src="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.js" type="text/javascript"></script>
+	<script src="materialbox.js" type="text/javascript"></script>
 	<script src="pay.js" type="text/javascript"></script>
+	
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.css">
 	<link href="pay.css" rel="stylesheet">
@@ -61,15 +64,17 @@
 				</div>
 				<div class="c-sp_30"></div>
 				<div class="c-sp_15"></div>
-				<div class="c-select-pay__hint" v-if="!!hint">
+				<div class="c-select-pay__hint" v-show="!!hint">
 					<div
 						class="c-table c-table_fullscreen"
 						v-for="(val, key) in paysInfo"
-						v-if="key === hint"
+						v-show="key === hint"
 					>
-						<div class="c-table__row" v-for="info in val">
-							<div class="c-table__cell">{{info.text}}</div>
-							<div class="c-table__cell">{{info.img}}</div>
+						<div class="c-table__row" v-for="(info, index) in val">
+							<div class="c-table__cell" v-html="getInstructionInfo(index, info.text)"></div>
+							<div class="c-table__cell-top" style="width: 400px;">
+								<img v-if="info.img" :src="'img/' + info.img" alt="" class="c-select-pay__img js-materialbox">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -92,7 +97,7 @@
 							</div>
 						</div>
 						<div class="c-table__row">
-							<div class="c-table__cell">№ Транзакции</div>
+							<div class="c-table__cell">№ Транзакции или номер кошелька в "Яндекс.Деньги"</div>
 							<div class="c-table__cell">
 								<input
 									type="text"

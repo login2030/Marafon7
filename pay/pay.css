@@ -182,6 +182,20 @@ html, body {
 	margin-right: 10px;
 	cursor: pointer;
 }
+.c-select-pay__hint .c-table__row > div {
+	padding: 20px 0;
+	border-bottom: 1px solid #eee;
+}
+.c-select-pay__hint .c-table__row:first-child > div {
+	padding-top: 0;
+}
+.c-select-pay__img {
+	display: block;
+	width: 300px;
+	cursor: pointer;
+	border: 1px solid #666;
+	margin-left: 20px;
+}
 .c-select-pay__list-item_is_active,
 .c-select-pay__list-item:hover {
 	border-color: tomato;
@@ -197,4 +211,49 @@ html, body {
 	position: absolute;
 	left: 70px;
 	bottom: -20px;
+}
+
+
+
+
+
+.materialboxed {
+	display: block;
+	cursor: zoom-in;
+	position: relative;
+	transition: opacity 0.4s;
+	-webkit-backface-visibility: hidden;
+}
+
+.materialboxed:hover:not(.active) {
+	opacity: 0.9;
+}
+
+.materialboxed.active {
+	cursor: zoom-out;
+}
+
+#materialbox-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #292929;
+	z-index: 1000;
+	will-change: opacity;
+}
+
+.materialbox-caption {
+	position: fixed;
+	display: none;
+	color: #fff;
+	line-height: 50px;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	padding: 0% 15%;
+	height: 50px;
+	z-index: 1000;
+	-webkit-font-smoothing: antialiased;
 }

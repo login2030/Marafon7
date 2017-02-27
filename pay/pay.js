@@ -1,11 +1,11 @@
 /* global Vue, swal */
 window.addEventListener('load', function() {
-	var ya = 'Яндекс.Деньги';
-	var sb = 'Сбербанк ОнЛ@йн';
 	Vue.component('pay', {
 		template: '#tpl-pay',
 		data: function() {
 			var data = 'Данные не получены';
+			var ya = 'Яндекс.Деньги';
+			var sb = 'Сбербанк ОнЛ@йн';
 			switch (getUrlVars().package) {
 				case '2':
 					data = {
@@ -23,7 +23,6 @@ window.addEventListener('load', function() {
 						}
 					};
 					break;
-					// Если любой другой, то будет показан шаблон оплаты для недельного курса
 				default:
 					data = {
 						info: {
@@ -37,8 +36,6 @@ window.addEventListener('load', function() {
 				header: 'Онлайн марафон',
 				subheader: 'Красивые привычки. Красивое тело',
 				emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-				ya: 'Яндекс.Деньги',
-				sb: 'Сбербанк ОнЛ@йн',
 				data: data,
 				pays: [
 					{
@@ -58,34 +55,52 @@ window.addEventListener('load', function() {
 				paysInfo: {
 					[ya]: [
 						{
-							text: 'Ytxt1',
-							img: 'img1'
+							text: 'Зайдите в Яндекс.Деньги <a target="_blank" href="https://money.yandex.ru" class="color-tomato">Яндекс.Деньги</a>',
+							img: 'ya-1.jpg'
 						},
 						{
-							text: 'txt2',
-							img: 'img2'
+							text: 'Внимательно проверьте все данные:'+
+							'<p>- Зайдите в "Переводы". Проверьте, хватает ли Вам средств, для оплаты выбранного пакета</p>'+
+							'<p>- В поле <b>Куда</b> выберите <b class="color-tomato">На любой кошелек</b></p>'+
+							'<p>- В поле <b>Кошелек, телефон или почта</b> введите номер кошелька <b class="color-tomato">410013792146732</b></p>'+
+							'<p>- В поле <b>Сумма</b> введите <b class="color-tomato">' + data.info['Цена'] + 'руб</b></p>'+
+							'<p>- Нажмите кнопку <b>Продолжить</b></p>'+
+							'',
+							img: data.info['Цена'] + '-ya-2.jpg'
 						},
 						{
-							text: 'txt3',
-							img: 'img3'
+							text: 'Еще раз проверьте, все ли правильно. Нажмите кнопку <b>Заплатить</b>',
+							img: 'ya-3.jpg'
 						},
+						{
+							text: 'Если Вы все сделали правильно, покажется этот экран',
+							img: 'ya-4.jpg'
+						},
+						{
+							text: 'Для завершения процесса оплаты в форме, которая находится ниже укажите свой <b class="color-tomato">Email</b> и <b class="color-tomato">Номер кошелька</b>.' +
+							'<p>На указанную Вами почту будет выслано письмо с дальнейшими инструкциями</p>',
+							img: 'ya-5.jpg'
+						}
 					],
 					[sb]: [
 						{
 							text: 'Stxt1',
-							img: 'img1'
+							img: 'sb-1.jpg'
 						},
 						{
 							text: 'txt2',
-							img: 'img2'
+							img: 'sb-2.jpg'
 						},
 						{
 							text: 'txt3',
-							img: 'img3'
+							img: 'sb-3.jpg'
 						},
 					]
 				},
 			};
+		},
+		mounted: function() {
+			$(this.$el).find('.js-materialbox').materialbox();
 		},
 		computed: {
 			validation: function() {
@@ -148,7 +163,13 @@ window.addEventListener('load', function() {
 						}
 					});
 				}
-			}
+			},
+			getInstructionInfo: function(i, txt) {
+				return ++i + ') ' + txt;
+			},
+			// getImgSrc: function(image, prefix) {
+			// 	return prefix ? 'img/' + this.data.imgPrefix + image : 'img/' + image;
+			// }
 		}
 	});
 	new Vue({
