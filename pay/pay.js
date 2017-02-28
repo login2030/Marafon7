@@ -5,7 +5,8 @@ window.addEventListener('load', function() {
 		data: function() {
 			var data = 'Данные не получены';
 			var ya = 'Яндекс.Деньги';
-			var sb = 'Сбербанк ОнЛ@йн';
+			var sb = 'Банковская карта';
+			var time = Date.now();
 			switch (getUrlVars().package) {
 				case '2':
 					data = {
@@ -37,19 +38,31 @@ window.addEventListener('load', function() {
 				subheader: 'Красивые привычки. Красивое тело',
 				emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 				data: data,
+				timeKey: time,
 				pays: [
 					{
 						name: ya,
-						img: 'https://www.walletone.com/logo/provider/YandexMoneyRUB.png?type=pt'
+						img: 'https://www.walletone.com/logo/provider/YandexMoneyRUB.png?type=pt',
+						formInfo: {
+							txt: 'Номер кошелька <br /> в "Яндекс.Деньги"',
+							placeholder: 'Например 410013792146732',
+							val: ''
+						}
 					},
 					{
 						name: sb,
-						img: 'https://www.walletone.com/logo/provider/SberOnlineRUB.png?type=pt'
+						img: 'https://www.walletone.com/logo/provider/CreditCardRUB.png?type=pt',
+						formInfo: {
+							txt: 'Уникальный ключ <br /> (Не изменяйте его!)',
+							placeholder: time,
+							val: String(time)
+						}
 					}
 				],
 				form: {
 					email: '',
-					transaction: ''
+					transaction: '',
+					txt: 'Это поле обязательное!'
 				},
 				hint: false,
 				paysInfo: {
@@ -84,17 +97,20 @@ window.addEventListener('load', function() {
 					],
 					[sb]: [
 						{
-							text: 'Stxt1',
-							img: 'sb-1.jpg'
+							text: 'ля оплаты пройдите по ссылке <a href="https://money.yandex.ru/to/410013792146732" class="color-tomato">https://money.yandex.ru/to/410013792146732</a>'+
+							'<p>- Введите сумму <b class="color-tomato">' + data.info['Цена'] + ' руб</b></p>'+
+							'<p>- Введите уникальный ключ <b class="color-tomato">' + time + '</b></p>'+
+							'<p>- Выберите <b>С банковской карты</b></p>'+
+							'<p>- Укажите данные Вашей карты</p>'+
+							'<p>- Проверьте данные и нажмите <b>Перевести</b></p>'+
+							'',
+							img: data.info['Цена'] + '-sb-1.jpg'
 						},
 						{
-							text: 'txt2',
-							img: 'sb-2.jpg'
-						},
-						{
-							text: 'txt3',
-							img: 'sb-3.jpg'
-						},
+							text: 'Для завершения процесса оплаты в форме, которая находится ниже укажите свой <b class="color-tomato">Email</b> и <b class="color-tomato">Уникальный ключ</b>.' +
+							'<p>На указанную Вами почту будет выслано письмо с дальнейшими инструкциями</p>',
+							img: 'ya-5.jpg'
+						}
 					]
 				},
 			};

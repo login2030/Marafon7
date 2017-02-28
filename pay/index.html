@@ -45,21 +45,13 @@
 					<div
 						class="c-select-pay__list-item"
 						v-for="pay in pays"
-						v-on:click="hint = pay.name"
+						v-on:click="hint = pay.name;form.transaction = pay.formInfo.val"
 						:class="{'c-select-pay__list-item_is_active': pay.name === hint}"
 					>
 						<div>
 							<img :src="pay.img" alt="" class="c-select-pay__list-item-img">
 							<p class="c-select-pay__list-item-name">{{pay.name}}</p>
 						</div>
-						<button
-							class="c-select-pay__c-close-button c-close-button"
-							title="Закрыть инструкцию"
-							v-if="pay.name === hint"
-							v-on:click.stop="hint = false"
-						>
-							&times;
-						</button>
 					</div>
 				</div>
 				<div class="c-sp_30"></div>
@@ -77,50 +69,62 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="c-sp_30"></div>
-			<div class="c-info c-info_has_form">
-				<p class="c-info__header reset roboto-700">После оплаты <span class="upper">обязательно</span> запоните эту форму:</p>
-				<form action="#" class="reset" v-on:submit.prevent="sendForm">
-					<div class="c-info__c-table c-table c-table_fullscreen">
-						<div class="c-table__row">
-							<div class="c-table__cell">Email</div>
-							<div class="c-table__cell">
-								<input
-									type="email"
-									:class="{'c-input': true, 'c-input_is_valid': validation.email}"
-									placeholder="Введите email"
-									v-model="form.email"
+					
+					<div class="c-sp_30"></div>
+					
+					<div class="c-info c-info_has_form">
+						<p class="c-info__header reset roboto-700">После оплаты <span class="upper">обязательно</span> запоните эту форму:</p>
+						<form action="#" class="reset" v-on:submit.prevent="sendForm">
+							<div class="c-info__c-table c-table c-table_fullscreen">
+								<div class="c-table__row">
+									<div class="c-table__cell">Ваш настоящий Email</div>
+									<div class="c-table__cell">
+										<input
+											type="email"
+											:class="{'c-input': true, 'c-input_is_valid': validation.email}"
+											placeholder="Введите email"
+											v-model="form.email"
+										>
+										<span
+											class="c-input-label"
+											v-show="!validation.email"
+										>
+											{{form.txt}}
+										</span>
+									</div>
+								</div>
+								<div
+									class="c-table__row"
+									v-for="pay in pays"
+									v-if="pay.name === hint"
 								>
-								<span class="c-input-label" v-show="!validation.email">Например user@mail.com</span>
+									<div class="c-table__cell" v-html="pay.formInfo.txt"></div>
+									<div class="c-table__cell">
+										<input
+											type="text"
+											:disabled="pay.formInfo.val == timeKey"
+											:class="{'c-input': true, 'c-input_is_valid': validation.transaction}"
+											:placeholder="pay.formInfo.placeholder"
+											v-model="form.transaction"
+										>
+										<span
+											class="c-input-label"
+											v-show="!validation.transaction"
+										>
+											{{form.txt}}
+										</span>
+									</div>
+								</div>
+								<div class="c-table__row">
+									<div class="c-table__cell"></div>
+									<div class="c-table__cell">
+										<button class="c-info__button">Отправить</button>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="c-table__row">
-							<div class="c-table__cell">№ Транзакции или номер кошелька в "Яндекс.Деньги"</div>
-							<div class="c-table__cell">
-								<input
-									type="text"
-									:class="{'c-input': true, 'c-input_is_valid': validation.transaction}"
-									placeholder="№ Транзакции"
-									v-model="form.transaction"
-								>
-								<span
-									class="c-input-label"
-									v-show="!validation.transaction"
-								>
-									Например: 2000610252470
-								</span>
-							</div>
-						</div>
-						<div class="c-table__row">
-							<div class="c-table__cell"></div>
-							<div class="c-table__cell">
-								<button class="c-info__button">Отправить</button>
-							</div>
-						</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</template>
