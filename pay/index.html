@@ -63,7 +63,7 @@
 						v-show="key === hint"
 					>
 						<div class="c-table__row" v-for="(info, index) in val">
-							<div class="c-table__cell" v-html="getInstructionInfo(index, info.text)"></div>
+							<div class="c-table__cell-top" v-html="getInstructionInfo(index, info.text)" style="padding-top: 20px;"></div>
 							<div class="c-table__cell-top" style="width: 400px;">
 								<img v-if="info.img" :src="'img/' + info.img" alt="" class="c-select-pay__img js-materialbox">
 							</div>

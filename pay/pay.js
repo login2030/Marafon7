@@ -97,7 +97,7 @@ window.addEventListener('load', function() {
 					],
 					[sb]: [
 						{
-							text: 'ля оплаты пройдите по ссылке <a href="https://money.yandex.ru/to/410013792146732" class="color-tomato">https://money.yandex.ru/to/410013792146732</a>'+
+							text: 'Для оплаты пройдите по ссылке <a target="_blank" href="https://money.yandex.ru/to/410013792146732" class="color-tomato">https://money.yandex.ru/to/410013792146732</a>'+
 							'<p>- Введите сумму <b class="color-tomato">' + data.info['Цена'] + ' руб</b></p>'+
 							'<p>- Введите уникальный ключ <b class="color-tomato">' + time + '</b></p>'+
 							'<p>- Выберите <b>С банковской карты</b></p>'+
@@ -182,10 +182,7 @@ window.addEventListener('load', function() {
 			},
 			getInstructionInfo: function(i, txt) {
 				return ++i + ') ' + txt;
-			},
-			// getImgSrc: function(image, prefix) {
-			// 	return prefix ? 'img/' + this.data.imgPrefix + image : 'img/' + image;
-			// }
+			}
 		}
 	});
 	new Vue({
