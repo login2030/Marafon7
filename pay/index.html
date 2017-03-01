@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="reset">
+<html lang="ru" class="reset">
 <head>
 	<meta charset="UTF-8">
-	<script src="https://cdn.jsdelivr.net/vue/2.1.10/vue.js" type="text/javascript"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="language" content="ru">
+	<meta name="HandheldFriendly" content="true">
+	<meta name="viewport" content="width=552">
+	<script src="https://cdn.jsdelivr.net/vue/2.1.10/vue.min.js" type="text/javascript"></script>
 	<script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/velocity/1.4.3/velocity.min.js" type="text/javascript"></script>
-	<script src="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.js" type="text/javascript"></script>
-	<script src="materialbox.js" type="text/javascript"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/velocity/1.4.3/velocity.min.js" type="text/javascript"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/sweetalert2/6.4.2/sweetalert2.min.js" type="text/javascript"></script> -->
+	<!-- <script src="materialbox.js" type="text/javascript"></script> -->
 	<script src="pay.js" type="text/javascript"></script>
 	
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
@@ -45,84 +49,12 @@
 					<div
 						class="c-select-pay__list-item"
 						v-for="pay in pays"
-						v-on:click="hint = pay.name;form.transaction = pay.formInfo.val"
-						:class="{'c-select-pay__list-item_is_active': pay.name === hint}"
 					>
 						<div>
 							<img :src="pay.img" alt="" class="c-select-pay__list-item-img">
 							<p class="c-select-pay__list-item-name">{{pay.name}}</p>
+							<p class="c-select-pay__list-item-button" v-html="pay.form"></p>
 						</div>
-					</div>
-				</div>
-				<div class="c-sp_30"></div>
-				<div class="c-sp_15"></div>
-				<div class="c-select-pay__hint" v-show="!!hint">
-					<div
-						class="c-table c-table_fullscreen"
-						v-for="(val, key) in paysInfo"
-						v-show="key === hint"
-					>
-						<div class="c-table__row" v-for="(info, index) in val">
-							<div class="c-table__cell-top" v-html="getInstructionInfo(index, info.text)" style="padding-top: 20px;"></div>
-							<div class="c-table__cell-top" style="width: 400px;">
-								<img v-if="info.img" :src="'img/' + info.img" alt="" class="c-select-pay__img js-materialbox">
-							</div>
-						</div>
-					</div>
-					
-					<div class="c-sp_30"></div>
-					
-					<div class="c-info c-info_has_form">
-						<p class="c-info__header reset roboto-700">После оплаты <span class="upper">обязательно</span> запоните эту форму:</p>
-						<form action="#" class="reset" v-on:submit.prevent="sendForm">
-							<div class="c-info__c-table c-table c-table_fullscreen">
-								<div class="c-table__row">
-									<div class="c-table__cell">Ваш настоящий Email</div>
-									<div class="c-table__cell">
-										<input
-											type="email"
-											:class="{'c-input': true, 'c-input_is_valid': validation.email}"
-											placeholder="Введите email"
-											v-model="form.email"
-										>
-										<span
-											class="c-input-label"
-											v-show="!validation.email"
-										>
-											{{form.txt}}
-										</span>
-									</div>
-								</div>
-								<div
-									class="c-table__row"
-									v-for="pay in pays"
-									v-if="pay.name === hint"
-								>
-									<div class="c-table__cell" v-html="pay.formInfo.txt"></div>
-									<div class="c-table__cell">
-										<input
-											type="text"
-											:disabled="pay.formInfo.val == timeKey"
-											:class="{'c-input': true, 'c-input_is_valid': validation.transaction}"
-											:placeholder="pay.formInfo.placeholder"
-											v-model="form.transaction"
-										>
-										<span
-											class="c-input-label"
-											v-show="!validation.transaction"
-										>
-											{{form.txt}}
-										</span>
-									</div>
-								</div>
-								<div class="c-table__row">
-									<div class="c-table__cell"></div>
-									<div class="c-table__cell">
-										<button class="c-info__button">Отправить</button>
-									</div>
-								</div>
-							</div>
-						</form>
 					</div>
 				</div>
 			</div>

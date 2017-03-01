@@ -35,13 +35,15 @@ html, body {
 	clear: both;
 }
 
+.d-ib {
+	display: inline-block;
+}
 .color-black {
 	color: #000;
 }
 .color-tomato {
 	color: tomato;
 }
-
 
 #app {
 	padding-top: 20px;
@@ -84,7 +86,7 @@ html, body {
 
 .c-root {
 	margin: auto;
-	width: 960px;
+	width: 490px;
 	padding: 20px 30px 40px;
 	border: 1px solid #999;
 	border-radius: 5px;
@@ -171,16 +173,27 @@ html, body {
 }
 .c-select-pay__list-item {
 	position: relative;
-	width: 180px;
-	height: 244px;
+	width: 222px;
 	text-align: center;
-	padding: 10px 15px;
+	padding: 15px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	box-sizing: border-box;
-	float: left;
-	margin-right: 10px;
 	cursor: pointer;
+}
+.c-select-pay__list-item:first-child {
+	float: left;
+}
+.c-select-pay__list-item:last-child {
+	float: right;
+}
+.c-select-pay__list-item-img {
+	display: block;
+	width: 140px;
+	margin: auto;
+}
+.c-select-pay__list-item-button {
+	margin-bottom: 0;
 }
 .c-select-pay__hint .c-table__row > div {
 	padding: 20px 0;
@@ -200,9 +213,6 @@ html, body {
 .c-select-pay__list-item:hover {
 	border-color: tomato;
 }
-.c-select-pay__list-item-img {
-	width: 100%;
-}
 .c-select-pay__list-item-name {
 	max-height: 40px;
 	overflow: hidden;
@@ -212,11 +222,6 @@ html, body {
 	left: 70px;
 	bottom: -20px;
 }
-
-
-
-
-
 .materialboxed {
 	display: block;
 	cursor: zoom-in;
